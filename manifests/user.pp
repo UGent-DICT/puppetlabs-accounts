@@ -27,6 +27,7 @@ define accounts::user(
   $bashrc_content       = undef,
   $bash_profile_content = undef,
   $user_provider        = undef,
+  $forcelocal           = true,
 ) {
   validate_re($ensure, '^present$|^absent$')
   validate_bool($locked, $managehome, $purge_sshkeys, $manage_primary_group)
@@ -100,6 +101,7 @@ define accounts::user(
     password       => $password,
     purge_ssh_keys => $purge_sshkeys,
     provider       => $user_provider,
+    forcelocal     => $forcelocal,
   }
 
   # use $gid instead of $_gid since `gid` in group can only take a number
