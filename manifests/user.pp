@@ -55,9 +55,13 @@ define accounts::user(
       default   => '/root',
     }
   } else {
-    $home_real = $::osfamily ? {
-      'Solaris' => "/export/home/${name}",
-      default   => "/home/${name}",
+    if($forcelocal){
+      $home_real = $::osfamily ? {
+        'Solaris' => "/export/home/${name}",
+        default   => "/home/${name}",
+      }
+    }else{
+      $home_real = undef
     }
   }
 
