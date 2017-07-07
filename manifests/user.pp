@@ -69,12 +69,15 @@ define accounts::user(
     validate_re($uid, '^\d+$')
   }
 
-  if $gid != undef {
-    validate_re($gid, '^\d+$')
+  if( ($gid == undef) and $forcelocal) {
+    $_gid = $name
+  }elsif $gid == undef {
     $_gid = $gid
   } else {
-    $_gid = $name
+    validate_re($gid, '^\d+$')
+    $_gid = $gid
   }
+
 
   if $locked {
     case $::operatingsystem {
