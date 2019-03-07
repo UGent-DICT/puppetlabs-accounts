@@ -16,6 +16,7 @@ define accounts::user(
   $home_mode            = undef,
   $uid                  = undef,
   $gid                  = undef,
+  $group                = $name,
   $groups               = [ ],
   $membership           = 'minimum',
   $create_group = true,
@@ -92,7 +93,7 @@ define accounts::user(
     comment        => "${comment}", # lint:ignore:only_variable_string
     home           => $home_real,
     uid            => $uid,
-    gid            => $_gid,
+    gid            => $group,
     groups         => $groups,
     membership     => $membership,
     managehome     => $managehome,
@@ -125,7 +126,7 @@ define accounts::user(
     bashrc_content       => $bashrc_content,
     bash_profile_content => $bash_profile_content,
     user                 => $name,
-    group                => $_gid,
+    group                => $group,
     sshkeys              => $sshkeys,
     require              => $home_dir_requirement,
   }
