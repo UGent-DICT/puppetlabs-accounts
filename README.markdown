@@ -1,3 +1,8 @@
+STOP!
+
+You should NOT be looking at this repo. We would rather have it die in a fire.
+
+
 # accounts
 
 #### Table of Contents
