@@ -74,7 +74,7 @@ describe 'accounts::user define', :unless => UNSUPPORTED_PLATFORMS.include?(fact
 
           accounts::user { 'myuser':
             gid                  => 666,
-            manage_primary_group => false,
+            create_group => false,
           }
         EOS
         apply_manifest(pp, :catch_failures => true)

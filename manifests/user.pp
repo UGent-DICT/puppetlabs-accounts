@@ -6,7 +6,7 @@
 # [*sshkeys*] List of ssh public keys to be associated with the
 # user.
 # [*managehome*] Whether the home directory should be removed with accounts
-# [*manage_primary_group*] Minage the primary group, default true
+# [*create_group*] Minage the primary group, default true
 #
 define accounts::user(
   $ensure               = 'present',
@@ -18,7 +18,7 @@ define accounts::user(
   $gid                  = undef,
   $groups               = [ ],
   $membership           = 'minimum',
-  $manage_primary_group = true,
+  $create_group = true,
   $password             = '!!',
   $locked               = false,
   $sshkeys              = [],
@@ -28,7 +28,7 @@ define accounts::user(
   $bash_profile_content = undef,
 ) {
   validate_re($ensure, '^present$|^absent$')
-  validate_bool($locked, $managehome, $purge_sshkeys, $manage_primary_group)
+  validate_bool($locked, $managehome, $purge_sshkeys, $create_group)
   validate_re($shell, '^/')
   validate_string($comment, $password)
   validate_array($groups, $sshkeys)
@@ -101,7 +101,7 @@ define accounts::user(
   }
 
   # use $gid instead of $_gid since `gid` in group can only take a number
-  if($manage_primary_group) {
+  if($create_group) {
     group { $name:
       ensure => $ensure,
       gid    => $gid,
